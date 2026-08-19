@@ -1,122 +1,135 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import './index.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [currentPage, setCurrentPage] = useState('home');
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-container">
+      <nav className="navbar">
+        <div className="nav-brand">
+          <div className="brand-icon">R</div>
+          <span>React Activity Portal</span>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+        <div className="nav-links">
+          <button 
+            className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} 
+            onClick={() => setCurrentPage('home')}
+          >
+            Home
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'activity1' ? 'active' : ''}`} 
+            onClick={() => setCurrentPage('activity1')}
+          >
+            Activity 1
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'activity2' ? 'active' : ''}`} 
+            onClick={() => setCurrentPage('activity2')}
+          >
+            Activity 2
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'activity3' ? 'active' : ''}`} 
+            onClick={() => setCurrentPage('activity3')}
+          >
+            Activity 3
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'activity4' ? 'active' : ''}`} 
+            onClick={() => setCurrentPage('activity4')}
+          >
+            Activity 4
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'activity5' ? 'active' : ''}`} 
+            onClick={() => setCurrentPage('activity5')}
+          >
+            Activity 5
+          </button>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </nav>
 
-      <div className="ticks"></div>
+      {currentPage === 'home' ? (
+        <main className="home-container">
+          <div className="hero-section">
+            <h1 className="hero-title">React Activity Portal</h1>
+            <p className="hero-subtitle">
+              Five interactive React activities demonstrating state, events, conditional logic, validation, and calculations.
+            </p>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <div className="grid-container">
+            <div className="activity-card">
+              <div className="card-number">1</div>
+              <h2 className="card-title">Login Authentication</h2>
+              <p className="card-description">
+                Validate a username and password against sample credentials and manage login/logout state.
+              </p>
+              <button className="card-button" onClick={() => setCurrentPage('activity1')}>
+                Open Activity
+              </button>
+            </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            <div className="activity-card">
+              <div className="card-number">2</div>
+              <h2 className="card-title">Student Grade Evaluation</h2>
+              <p className="card-description">
+                Enter a student's score and get an automatic remark based on grade ranges.
+              </p>
+              <button className="card-button" onClick={() => setCurrentPage('activity2')}>
+                Open Activity
+              </button>
+            </div>
+
+            <div className="activity-card">
+              <div className="card-number">3</div>
+              <h2 className="card-title">Password Strength Checker</h2>
+              <p className="card-description">
+                Check password length and receive live feedback on how strong it is.
+              </p>
+              <button className="card-button" onClick={() => setCurrentPage('activity3')}>
+                Open Activity
+              </button>
+            </div>
+
+            <div className="activity-card">
+              <div className="card-number">4</div>
+              <h2 className="card-title">Electricity Bill Calculator</h2>
+              <p className="card-description">
+                Calculate a customer's electricity bill based on kWh consumption and tiered rates.
+              </p>
+              <button className="card-button" onClick={() => setCurrentPage('activity4')}>
+                Open Activity
+              </button>
+            </div>
+
+            <div className="activity-card">
+              <div className="card-number">5</div>
+              <h2 className="card-title">Employee Attendance Checker</h2>
+              <p className="card-description">
+                Check an employee's time-in and determine whether they are on time, late, or very late.
+              </p>
+              <button className="card-button" onClick={() => setCurrentPage('activity5')}>
+                Open Activity
+              </button>
+            </div>
+          </div>
+        </main>
+      ) : (
+        <main className="home-container">
+          <div className="hero-section">
+            <h1 className="hero-title">
+              {currentPage === 'activity1' && 'Activity 1: Login Authentication'}
+              {currentPage === 'activity2' && 'Activity 2: Student Grade Evaluation'}
+              {currentPage === 'activity3' && 'Activity 3: Password Strength Checker'}
+              {currentPage === 'activity4' && 'Activity 4: Electricity Bill Calculator'}
+              {currentPage === 'activity5' && 'Activity 5: Employee Attendance Checker'}
+            </h1>
+          </div>
+        </main>
+      )}
+    </div>
+  );
 }
-
-export default App
