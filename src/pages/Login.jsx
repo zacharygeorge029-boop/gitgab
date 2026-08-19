@@ -37,7 +37,7 @@ export default function Login() {
       
       {/* Header Section */}
       <div style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ 
             width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#2563eb', color: '#fff', 
             display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1rem' 
@@ -49,9 +49,6 @@ export default function Login() {
             <h1 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#0f172a', margin: 0 }}>Login Authentication</h1>
           </div>
         </div>
-        <p style={{ color: '#64748b', fontSize: '0.95rem', fontStyle: 'italic', margin: '0.25rem 0 0 0' }}>
-          Username + password form with validation and a logged-in state.
-        </p>
       </div>
 
       {/* Main Interactive Box */}
@@ -113,25 +110,6 @@ export default function Login() {
             {message}
           </div>
         )}
-      </div>
-
-      {/* Demonstrates Footer Bar */}
-      <div style={{ 
-        backgroundColor: '#f1f5f9', borderRadius: '12px', padding: '1.25rem 1.5rem', 
-        display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', border: '1px solid #e2e8f0' 
-      }}>
-        <span style={{ fontSize: '0.75rem', fontWeight: '800', color: '#334155', letterSpacing: '0.05em' }}>DEMONSTRATES</span>
-        <div style={{ display: 'flex', gap: '0.50rem', flexWrap: 'wrap' }}>
-          {['useState', 'Form events', 'Validation', 'if / else', 'Conditional rendering'].map((tag, idx) => (
-            <span key={idx} style={{ 
-              backgroundColor: '#ffffff', color: '#0f172a', padding: '0.35rem 0.85rem', 
-              borderRadius: '20px', fontSize: '0.8rem', fontWeight: '600', border: '1px solid #cbd5e1',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
-            }}>
-              {tag}
-            </span>
-          ))}
-        </div>
       </div>
 
     </div>
