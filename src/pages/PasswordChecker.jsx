@@ -5,42 +5,61 @@ export default function PasswordStrengthChecker() {
   const [result, setResult] = useState(null);
 
   const handleCheckPassword = () => {
-    const length = password.length;
-
-    if (length === 0) {
+    if (password.length === 0) {
       setResult({
         status: 'Empty',
         message: 'Please enter a password.',
         strengthText: '',
-        color: '#6b7280' // Gray
+        color: '#6b7280', // Gray
+        percent: 0
       });
       return;
     }
 
-    let status = '';
-    let strengthText = '';
-    let color = '';
+    // 1. Calculate Score based on multiple security criteria
+    let score = 0;
+    
+    // Length checks
+    if (password.length >= 8) score += 1;
+    if (password.length >= 12) score += 1;
 
-    if (length < 6) {
+    // Character variety checks
+    if (/[a-z]/.test(password)) score += 1; // Lowercase
+    if (/[A-Z]/.test(password)) score += 1; // Uppercase
+    if (/[0-9]/.test(password)) score += 1; // Digits
+    if (/[^A-Za-z0-9]/.test(password)) score += 1; // Special Characters
+
+    // Penalize simple repetitive patterns or pure numbers
+    if (/^\d+$/.test(password) && password.length < 12) score = Math.min(score, 2);
+
+    // 2. Map score (0 to 6) to Status, Color, and Visual Width
+    let status = '';
+    let message = '';
+    let color = '';
+    let percent = 0;
+
+    if (score <= 2) {
       status = 'Weak Password';
-    } else if (length >= 6 && length <= 9) {
+      message = 'Status: Weak – Add numbers, symbols, or uppercase letters.';
+      color = '#ef4444'; // Red
+      percent = 33;
+    } else if (score <= 4) {
       status = 'Medium Password';
+      message = 'Status: Moderate – Make it longer or add special characters for extra safety.';
+      color = '#f59e0b'; // Orange
+      percent = 66;
     } else {
       status = 'Strong Password';
-    }
-
-    if (length >= 10) {
-      strengthText = 'Status: Strong – You can use this password.';
+      message = 'Status: Strong – You can safely use this password.';
       color = '#22c55e'; // Green
-    } else {
-      strengthText = 'Status: Weak – Create a stronger password.';
-      color = length < 6 ? '#ef4444' : '#f59e0b'; // Red for <6, Orange for 6-9
+      percent = 100;
     }
 
     setResult({
       status,
-      message: strengthText,
-      color
+      message,
+      color,
+      percent
     });
   };
 
@@ -100,7 +119,7 @@ export default function PasswordStrengthChecker() {
           <div style={{ marginTop: '1rem' }}>
             <span style={{ fontSize: '0.875rem', color: '#94a3b8' }}>Visual strength indicator: </span>
             <div style={{ height: '8px', width: '100%', backgroundColor: '#334155', borderRadius: '4px', marginTop: '0.5rem', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: password.length === 0 ? '0%' : password.length >= 10 ? '100%' : password.length >= 6 ? '66%' : '33%', backgroundColor: result.color, transition: 'all 0.3s' }} />
+              <div style={{ height: '100%', width: `${result.percent}%`, backgroundColor: result.color, transition: 'all 0.3s' }} />
             </div>
           </div>
         </div>
