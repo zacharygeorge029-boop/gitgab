@@ -9,49 +9,39 @@ export default function PasswordStrengthChecker() {
       setResult({
         status: 'Empty',
         message: 'Please enter a password.',
-        strengthText: '',
         color: '#6b7280', // Gray
         percent: 0
       });
       return;
     }
 
-    // 1. Calculate Score based on multiple security criteria
     let score = 0;
-    
-    // Length checks
     if (password.length >= 8) score += 1;
     if (password.length >= 12) score += 1;
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
 
-    // Character variety checks
-    if (/[a-z]/.test(password)) score += 1; // Lowercase
-    if (/[A-Z]/.test(password)) score += 1; // Uppercase
-    if (/[0-9]/.test(password)) score += 1; // Digits
-    if (/[^A-Za-z0-9]/.test(password)) score += 1; // Special Characters
-
-    // Penalize simple repetitive patterns or pure numbers
-    if (/^\d+$/.test(password) && password.length < 12) score = Math.min(score, 2);
-
-    // 2. Map score (0 to 6) to Status, Color, and Visual Width
     let status = '';
     let message = '';
     let color = '';
     let percent = 0;
 
     if (score <= 2) {
-      status = 'Weak Password';
-      message = 'Status: Weak – Add numbers, symbols, or uppercase letters.';
-      color = '#ef4444'; // Red
+      status = 'Easy';
+      message = 'Status: Easy – Simple password, low complexity.';
+      color = '#22c55e'; // Green
       percent = 33;
     } else if (score <= 4) {
-      status = 'Medium Password';
-      message = 'Status: Moderate – Make it longer or add special characters for extra safety.';
+      status = 'Mid';
+      message = 'Status: Mid – Moderate password complexity.';
       color = '#f59e0b'; // Orange
       percent = 66;
     } else {
-      status = 'Strong Password';
-      message = 'Status: Strong – You can safely use this password.';
-      color = '#22c55e'; // Green
+      status = 'Hard';
+      message = 'Status: Hard – High password complexity.';
+      color = '#ef4444'; // Red
       percent = 100;
     }
 
@@ -70,7 +60,6 @@ export default function PasswordStrengthChecker() {
 
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', backgroundColor: '#f0f4f9', minHeight: '100vh' }}>
-      {/* UI Component Card */}
       <div style={{ maxWidth: '400px', margin: '0 auto 2rem', backgroundColor: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
         <div style={{ backgroundColor: '#4f46e5', color: '#fff', padding: '1.5rem' }}>
           <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Password Strength Checker</h2>
@@ -107,7 +96,6 @@ export default function PasswordStrengthChecker() {
         </div>
       </div>
 
-      {/* Result Panel */}
       {result && (
         <div style={{ maxWidth: '400px', margin: '0 auto', backgroundColor: '#0f172a', color: '#fff', padding: '1.5rem', borderRadius: '12px' }}>
           <h3 style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 0 }}>
