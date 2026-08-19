@@ -5,7 +5,9 @@ export default function PasswordStrengthChecker() {
   const [result, setResult] = useState(null);
 
   const handleCheckPassword = () => {
-    if (password.length === 0) {
+    const length = password.length;
+
+    if (length === 0) {
       setResult({
         status: 'Empty',
         message: 'Please enter a password.',
@@ -15,32 +17,24 @@ export default function PasswordStrengthChecker() {
       return;
     }
 
-    let score = 0;
-    if (password.length >= 8) score += 1;
-    if (password.length >= 12) score += 1;
-    if (/[a-z]/.test(password)) score += 1;
-    if (/[A-Z]/.test(password)) score += 1;
-    if (/[0-9]/.test(password)) score += 1;
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
-
     let status = '';
     let message = '';
     let color = '';
     let percent = 0;
 
-    if (score <= 2) {
+    if (length < 10) {
       status = 'Easy';
-      message = 'Status: Easy – Simple password, low complexity.';
+      message = 'Status: Easy – Password is short (under 10 characters).';
       color = '#22c55e'; // Green
       percent = 33;
-    } else if (score <= 4) {
+    } else if (length >= 10 && length <= 14) {
       status = 'Mid';
-      message = 'Status: Mid – Moderate password complexity.';
+      message = 'Status: Mid – Moderate length password.';
       color = '#f59e0b'; // Orange
       percent = 66;
     } else {
       status = 'Hard';
-      message = 'Status: Hard – High password complexity.';
+      message = 'Status: Hard – Long, complex password length.';
       color = '#ef4444'; // Red
       percent = 100;
     }
@@ -60,6 +54,7 @@ export default function PasswordStrengthChecker() {
 
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', backgroundColor: '#f0f4f9', minHeight: '100vh' }}>
+      {/* UI Component Card */}
       <div style={{ maxWidth: '400px', margin: '0 auto 2rem', backgroundColor: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
         <div style={{ backgroundColor: '#4f46e5', color: '#fff', padding: '1.5rem' }}>
           <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Password Strength Checker</h2>
@@ -96,6 +91,7 @@ export default function PasswordStrengthChecker() {
         </div>
       </div>
 
+      {/* Result Panel */}
       {result && (
         <div style={{ maxWidth: '400px', margin: '0 auto', backgroundColor: '#0f172a', color: '#fff', padding: '1.5rem', borderRadius: '12px' }}>
           <h3 style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 0 }}>
